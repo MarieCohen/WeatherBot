@@ -7,68 +7,92 @@ from aiogram.types import(
 )
 
 
-start_kb = InlineKeyboardMarkup(inline_keyboard = [
+start = InlineKeyboardMarkup(inline_keyboard = [
     [InlineKeyboardButton(text = 'Открыть портал 🕳️',
                           callback_data = 'menu')]])
 
 
-menu_kb = [
+menu = [
     [InlineKeyboardButton(text = '💬 Чат с ChatGPT', callback_data = 'support')],
     [InlineKeyboardButton(text = '🧘 Практики', callback_data = 'practices_lvl'),
     InlineKeyboardButton(text = '🗝 Видео', callback_data = 'videos')],
     [InlineKeyboardButton(text = '🌟 Premium подписка', callback_data = 'premium')],
     [InlineKeyboardButton(text = '❓ ЧаВо', url = 'https://telegra.ph/FAQ-dlya-bota-SOULnear-10-22')]
 ]
-menu_kb = InlineKeyboardMarkup(inline_keyboard = menu_kb)
+menu = InlineKeyboardMarkup(inline_keyboard = menu)
 
 
-profile_kb = [
+profile = [
     [InlineKeyboardButton(text = '📷 Фото', callback_data = 'set_photo'),
     InlineKeyboardButton(text = '🖋 Имя', callback_data = 'set_name')],
     [InlineKeyboardButton(text = '👫 Пол', callback_data = 'set_gender'),
     InlineKeyboardButton(text = '👥 Возраст', callback_data = 'set_age')],
     [InlineKeyboardButton(text = '↩️ Назад', callback_data = 'menu')]
 ]
-profile_kb = InlineKeyboardMarkup(inline_keyboard = profile_kb)
+profile = InlineKeyboardMarkup(inline_keyboard = profile)
 
 
-payment_kb = [
-    [InlineKeyboardButton(text = '💳 Оплатить 190,00 ₽', callback_data = 'buy'),
-    InlineKeyboardButton(text = '🔍 Проверить оплату', callback_data = 'chek_payment')],
-    [InlineKeyboardButton(text = '↩️ Назад', callback_data = 'menu')
-    ]
+
+#Выбор периода подписки
+premium = [
+    [InlineKeyboardButton(text = '1 месяц/499 ₽', callback_data = 'pay_1')],
+    [InlineKeyboardButton(text = '3 месяцa/1119 ₽', callback_data = 'pay_2')],
+    [InlineKeyboardButton(text = '12 месяцев/3999 ₽', callback_data = 'pay_3')],
+    [InlineKeyboardButton(text = '↩️ Назад', callback_data = 'menu')]
 ]
-payment_kb = InlineKeyboardMarkup(inline_keyboard = payment_kb)
+premium = InlineKeyboardMarkup(inline_keyboard = premium)
+
+#Подписка на 1 мес
+pay_1 = [
+    [InlineKeyboardButton(text = '💳 Оплатить 499,00 ₽', url = 'https://t.me/SoulnearBot')],
+    [InlineKeyboardButton(text = '↩️ Назад', callback_data = 'premium')]
+]
+pay_1 = InlineKeyboardMarkup(inline_keyboard = pay_1)
+
+#Подписка на 3 мес
+pay_2 = [
+    [InlineKeyboardButton(text = '💳 Оплатить 1119,00 ₽', url = 'https://t.me/SoulnearBot')],
+    [InlineKeyboardButton(text = '↩️ Назад', callback_data = 'premium')]
+]
+pay_2 = InlineKeyboardMarkup(inline_keyboard = pay_2)
+
+#Подписка на 12 мес
+pay_3 = [
+    [InlineKeyboardButton(text = '💳 Оплатить 3999,00 ₽', url = 'https://t.me/SoulnearBot')],
+    [InlineKeyboardButton(text = '↩️ Назад', callback_data = 'premium')]
+]
+pay_3 = InlineKeyboardMarkup(inline_keyboard = pay_3)
 
 
-to_menu_kb = InlineKeyboardMarkup(inline_keyboard = [
+
+#Возвратиться в меню
+to_menu = InlineKeyboardMarkup(inline_keyboard = [
     [InlineKeyboardButton(text = '↩️ Назад', callback_data = 'menu')]])
-
 
 
 
 #Практики делятся на 4 уровня: Введение, Пробуждение, Глубина, Расширение.
 #Выбор уровня:
-practices_lvl_kb = [
+practices_lvl = [
     [InlineKeyboardButton(text = '🗝  Введение', callback_data = 'lvl_1')],
     [InlineKeyboardButton(text = '🧘 Пробуждение', callback_data = 'lvl_2')],
     [InlineKeyboardButton(text = '🌊 Глубина', callback_data = 'lvl_3')],
     [InlineKeyboardButton(text = '🕳 Расширение', callback_data = 'lvl_4')],
     [InlineKeyboardButton(text = '↩️ Назад', callback_data = 'menu')]
 ]
-practices_lvl_kb = InlineKeyboardMarkup(inline_keyboard = practices_lvl_kb)
+practices_lvl = InlineKeyboardMarkup(inline_keyboard = practices_lvl)
 
 #Практики первого уровня:
-lvl_1_kb = [
+lvl_1 = [
     [InlineKeyboardButton(text = 'Погружение в медитацию',
                           url = 'https://telegra.ph/Pogruzhenie-v-meditaciyu-podgotovka-tela-nastrojka-ehnergii-i-sekrety-uspeshnoj-praktiki-10-21')],
     [InlineKeyboardButton(text = '↩️ Назад',
                           callback_data = 'practices_lvl')]
 ]
-lvl_1_kb = InlineKeyboardMarkup(inline_keyboard = lvl_1_kb)
+lvl_1 = InlineKeyboardMarkup(inline_keyboard = lvl_1)
 
 #Практики второго уровня:
-lvl_2_kb = [
+lvl_2 = [
     [InlineKeyboardButton(text = 'Осознанное дыхание',
                           url = 'https://telegra.ph/Probuzhdenie--praktiki-do-15-minut-10-22'),
     InlineKeyboardButton(text = 'Осознанная ходьба',
@@ -82,10 +106,10 @@ lvl_2_kb = [
     [InlineKeyboardButton(text = '↩️ Назад',
                           callback_data = 'practices_lvl')]
 ]
-lvl_2_kb = InlineKeyboardMarkup(inline_keyboard = lvl_2_kb)
+lvl_2 = InlineKeyboardMarkup(inline_keyboard = lvl_2)
 
 #Практики третьего уровня:
-lvl_3_kb = [
+lvl_3 = [
     [InlineKeyboardButton(text = 'Медитация Ошо',
                           url = 'https://telegra.ph/Dinamicheskaya-meditaciya-Osho-10-21'),
     InlineKeyboardButton(text = 'Медитация #2',
@@ -97,10 +121,10 @@ lvl_3_kb = [
     [InlineKeyboardButton(text = '↩️ Назад',
                           callback_data = 'practices_lvl')]
 ]
-lvl_3_kb = InlineKeyboardMarkup(inline_keyboard = lvl_3_kb)
+lvl_3 = InlineKeyboardMarkup(inline_keyboard = lvl_3)
 
 #Практики четвертого уровня:
-lvl_4_kb = [
+lvl_4 = [
     [InlineKeyboardButton(text = 'Гудящая медитация',
                           url = 'https://telegra.ph/Gudyashchaya-meditaciya--dinamicheskaya-praktika-kotoraya-vklyuchaet-zvukovye-vibracii-i-medlennye-dvizheniya-ruk-10-22')],
     [InlineKeyboardButton(text = '«Внутренняя тишина»',
@@ -110,4 +134,4 @@ lvl_4_kb = [
     [InlineKeyboardButton(text = '↩️ Назад',
                           callback_data = 'practices_lvl')]
 ]
-lvl_4_kb = InlineKeyboardMarkup(inline_keyboard = lvl_4_kb)
+lvl_4 = InlineKeyboardMarkup(inline_keyboard = lvl_4)
