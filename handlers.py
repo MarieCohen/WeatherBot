@@ -19,17 +19,7 @@ import text
 import ChatGPT
 from states import Reg, get_prompt
 #from payments import create, check
-from keyboards import (
-    start_kb,
-    menu_kb,
-    payment_kb,
-    to_menu_kb,
-    practices_lvl_kb,
-    lvl_1_kb,
-    lvl_2_kb,
-    lvl_3_kb,
-    lvl_4_kb
-    )
+import keyboards
 import Pictures
  
 router = Router()
@@ -49,7 +39,7 @@ async def cmd_start(message: Message, command: CommandObject):
     await message.answer_photo(
         photo = msg_pic,
         caption = text.greet,
-        reply_markup = start_kb,
+        reply_markup = keyboards.start,
         parse_mode = 'html'
         )
 
@@ -60,7 +50,7 @@ async def menu(message: Message, state: FSMContext):
     await message.answer_photo(
         photo = msg_pic,
         caption = text.menu,
-        reply_markup = menu_kb,
+        reply_markup = keyboards.menu,
         parse_mode = 'html'
         )
 
@@ -79,7 +69,7 @@ async def menu(callback: CallbackQuery, state: FSMContext):
     await callback.message.answer_photo(
         photo = msg_pic,
         caption = text.menu,
-        reply_markup = menu_kb,
+        reply_markup = keyboards.menu,
         parse_mode = 'html'
         )
 
@@ -89,7 +79,7 @@ async def practices_lvl(callback: CallbackQuery):
     await callback.answer(show_alert=False)
     await callback.message.delete()
     await callback.message.answer(text = text.practices_lvl,
-                                  reply_markup = practices_lvl_kb,
+                                  reply_markup = keyboards.practices_lvl,
                                   parse_mode = 'html'
                                   )
 
@@ -99,7 +89,7 @@ async def lvl_1(callback: CallbackQuery):
     await callback.answer(show_alert=False)
     await callback.message.delete()
     await callback.message.answer(text = '<b>🗝  Введение</b>',
-                                  reply_markup = lvl_1_kb,
+                                  reply_markup = keyboards.lvl_1,
                                   parse_mode = 'html')
 
 #Практики второго уровня:
@@ -108,7 +98,7 @@ async def lvl_2(callback: CallbackQuery):
     await callback.answer(show_alert=False)
     await callback.message.delete()
     await callback.message.answer(text = '<b>🧘 Пробуждение</b>',
-                                  reply_markup = lvl_2_kb,
+                                  reply_markup = keyboards.lvl_2,
                                   parse_mode = 'html')
 
 #Практики третьего уровня:
@@ -117,7 +107,7 @@ async def lvl_3(callback: CallbackQuery):
     await callback.answer(show_alert=False)
     await callback.message.delete()
     await callback.message.answer(text = '<b>🌊 Глубина</b>',
-                                  reply_markup = lvl_3_kb,
+                                  reply_markup = keyboards.lvl_3,
                                   parse_mode = 'html')
 
 #Практики четвертого уровня:
@@ -126,7 +116,7 @@ async def lvl_4(callback: CallbackQuery):
     await callback.answer(show_alert=False)
     await callback.message.delete()
     await callback.message.answer(text = '<b>🕳 Расширение</b>',
-                                  reply_markup = lvl_4_kb,
+                                  reply_markup = keyboards.lvl_4,
                                   parse_mode = 'html')
 
 #Видео
@@ -138,7 +128,6 @@ async def videos(callback: CallbackQuery):
 
 
 
-
 #Оплата
 @router.callback_query(F.data == 'premium')
 async def premium(callback: CallbackQuery):
@@ -147,9 +136,41 @@ async def premium(callback: CallbackQuery):
     #payment_url, payment_id = create(PRICE, callback.message.chat.id)
     await callback.message.answer(
         text.premium,
-        reply_markup = to_menu_kb,
+        reply_markup = keyboards.premium,
         parse_mode = 'html'
-        )  #f"{payment_url}"
+     )  #f"{payment_url}"
+
+#Подписка на 1 мес
+@router.callback_query(F.data == 'pay_1')
+async def pay_1(callback: CallbackQuery):
+    await callback.answer(show_alert=False)
+    await callback.message.delete()
+    await callback.message.answer(
+        text.pay,
+        reply_markup = keyboards.pay_1
+    )
+
+#Подписка на 3 мес
+@router.callback_query(F.data == 'pay_2')
+async def pay_2(callback: CallbackQuery):
+    await callback.answer(show_alert=False)
+    await callback.message.delete()
+    await callback.message.answer(
+        text.pay,
+        reply_markup = keyboards.pay_2
+    )
+
+#Подписка на 12 мес
+@router.callback_query(F.data == 'pay_3')
+async def pay_3(callback: CallbackQuery):
+    await callback.answer(show_alert=False)
+    await callback.message.delete()
+    await callback.message.answer(
+        text.pay,
+        reply_markup = keyboards.pay_3
+    )
+
+
 
 
 #Чат с ChatGPT
@@ -174,6 +195,6 @@ async def generate_text(message: Message, state: FSMContext):
     if not res:
         return await gen_message.edit_text(
             text.gen_error,
-            reply_markup=to_menu_kb
+            reply_markup = keyboards.to_menu
             )
     await gen_message.edit_text(f"{res}\n\nЧтобы завершить чат, отправь /menu")
